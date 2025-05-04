@@ -7,4 +7,8 @@ This project aims to analyze the popularity trends of construction materials by 
 
 ## 🚀 Features
 
+## 🔧 Technologies Used
+
 ## 📊 Results / Examples
+
+## 👤 Author / Contributors
