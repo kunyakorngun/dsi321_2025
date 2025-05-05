@@ -1,39 +1,41 @@
-from duckduckgo_search import DDGS
+import feedparser
 import csv
-import os
+from datetime import datetime
 
-# รายการหัวข้อที่ต้องการค้นหา
-topics = [
+# รายการคำค้นหาที่ต้องการ
+keywords = [
     "construction materials",
-    "Construction products",
-    "3D printed houses",
-    "Building supplies",
-    "Building materials"
+    "cement industry",
+    "Construction supplies",
+    "green building",
+    "building materials",
+    "Sustainable building materials",
+    "Eco-friendly building materials",
+    "Alternative construction materials"
 ]
 
-# สร้างอินสแตนซ์ของ DDGS
-with DDGS() as ddgs:
-    for topic in topics:
-        # ค้นหาข่าวที่เกี่ยวข้องกับหัวข้อ
-        results = ddgs.news(topic, max_results=10)
+# เวลาที่ดึงข้อมูล
+fetch_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # ตรวจสอบว่ามีผลลัพธ์หรือไม่
-        if results:
-            # สร้างชื่อไฟล์ CSV โดยแทนที่ช่องว่างด้วยขีดล่าง
-            filename = f"{topic.replace(' ', '_')}_news.csv"
+# เปิดไฟล์ CSV เพื่อเขียนข้อมูล
+with open("scrap_test.csv", mode="w", encoding="utf-8", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Fetched Time", "Keyword", "Title", "URL"])
 
-            # เปิดไฟล์ CSV เพื่อเขียนข้อมูล
-            with open(filename, mode="w", encoding="utf-8", newline="") as csvfile:
-                # กำหนดหัวข้อคอลัมน์จากคีย์ของดิกชันนารีแรก
-                fieldnames = results[0].keys()
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    seen_titles = set()
 
-                # เขียนหัวข้อคอลัมน์
-                writer.writeheader()
+    for keyword in keywords:
+        # สร้าง URL สำหรับ RSS Feed
+        rss_url = f"https://news.google.com/rss/search?q={keyword.replace(' ', '+')}&hl=en-US&gl=US&ceid=US:en"
 
-                # เขียนข้อมูลแต่ละแถว
-                writer.writerows(results)
+        # ดึงข้อมูลจาก RSS Feed
+        feed = feedparser.parse(rss_url)
 
-            print(f"บันทึกข่าวสำหรับหัวข้อ '{topic}' สำเร็จลงในไฟล์ {filename}")
-        else:
-            print(f"ไม่พบผลลัพธ์สำหรับหัวข้อ '{topic}'")
+        for entry in feed.entries:
+            title = entry.title.strip()
+            link = entry.link.strip()
+
+            # ตรวจสอบว่าหัวข้อข่าวซ้ำหรือไม่
+            if title not in seen_titles:
+                writer.writerow([fetch_time, keyword, title, link])
+                seen_titles.add(title)
