@@ -4,14 +4,14 @@ from datetime import datetime
 
 # รายการคำค้นหาที่ต้องการ
 keywords = [
-    "construction materials",
+    "cement industry",
 ]
 
 # เวลาที่ดึงข้อมูล
 fetch_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # เปิดไฟล์ CSV เพื่อเขียนข้อมูล
-with open("construction materials_scrap.csv", mode="w", encoding="utf-8", newline="") as file:
+with open("cement industry_scrap.csv", mode="w", encoding="utf-8", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(["Fetched Time", "Keyword", "Title", "URL"])
 
