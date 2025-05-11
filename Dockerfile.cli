@@ -1,0 +1,11 @@
+FROM prefecthq/prefect:3-python3.12
+
+WORKDIR /root/flows
+
+COPY requirements.txt requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY scrape.py scrape.py
+
+
