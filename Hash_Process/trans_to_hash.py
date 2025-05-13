@@ -1,7 +1,6 @@
 import csv
 import hashlib
 
-
 input_file = 'news_results.csv'
 output_file = 'hashed_output.txt'
 
