@@ -1,5 +1,8 @@
 from prefect import flow, task
 from playwright.sync_api import sync_playwright
+from prefect.schedules import Interval
+from datetime import timedelta
+from pathlib import Path
 import pandas as pd
 from datetime import datetime
 import time
@@ -17,7 +20,7 @@ console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 
 @task(name="Search News")
-def search_news(keyword: str, max_pages: int = 10):
+def search_news(keyword: str, max_pages: int = 1):#ให้รัน1หน้าเพราะเราจได้ข่าวใหม่โดยจากลิ้งurlที่เราตั้งไว้มันเลือกเป็ฯล่าสุดอยู่แล้ว
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
@@ -39,18 +42,8 @@ def search_news(keyword: str, max_pages: int = 10):
                     title = title_el.text_content().strip()
                     a_tag = title_el.query_selector("xpath=ancestor::a")
                     link = a_tag.get_attribute("href") if a_tag else None
-
-                    # ✅ เพิ่มส่วนดึงวันที่
-                    main_element = title_el.query_selector("xpath=..")
-                    date_element = main_element.query_selector('[class="OSrXXb rbYSKb LfVVr"]')
-                    date_text = None
-                    if date_element:
-                        date_text = date_element.text_content().strip()
-                    else:
-                        logger.error("ไม่มี Date")
-
                     if title and link and title not in seen_titles:
-                        titles_links.append((title, link, date_text))
+                        titles_links.append((title, link))
                         seen_titles.add(title)
                 except Exception as e:
                     logger.error(f"❌ Error ที่หน้า {page_num}: {e}")
@@ -66,27 +59,37 @@ def search_news(keyword: str, max_pages: int = 10):
         return titles_links
 
 @task(name="save to csv")
-def save_to_csv(data, filename="raw_scrape.csv"):
+def save_to_csv(data, filename="news_results.csv"):
     df = pd.DataFrame(data)
     df.to_csv(filename, index=False, encoding='utf-8-sig')
     logger.info(f"✅ ดึงข่าวรวมได้ทั้งหมด {len(df)} หัวข้อ และบันทึกใน {filename}")
 
-@flow(name="initial flow")
+@flow(name="incremental flow")
 def news_scraper_flow():
     all_results = []
 
     for keyword in keywords:
         results = search_news(keyword)
-        for title, link, date in results:
+        for title, link in results:
             all_results.append({
                 "Fetched Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "Keyword": keyword,
                 "Title": title,
-                "Link": link,
-                "Date": date
+                "Link": link
             })
 
     save_to_csv(all_results)
 
 if __name__ == "__main__":
-    news_scraper_flow()
+    news_scraper_flow.from_source(
+        source=Path(__file__).parent,
+        entrypoint="./scrape_2.py:news_scraper_flow",
+    ).deploy(
+        name="incremental flow",
+        work_pool_name="scrape-news",
+        schedule=Interval(
+            timedelta(minutes=2),
+            timezone="Asia/Bangkok"
+        )
+    )
+    # print(Path(__file__).parent)
