@@ -38,6 +38,5 @@ if common_hashes:
             print(f'✅ สร้างไฟล์ Realnew_data.csv จำนวน {matched_count} แถวที่ตรงกันเรียบร้อยแล้ว')
         else:
             print('❗พบ hash ที่ตรงกัน แต่ไม่มีข้อมูลที่ match กันใน news_results.csv')
-
 else:
     print('❌ ไม่มีข้อมูลที่ตรงกัน ไม่สามารถ join กันได้')
