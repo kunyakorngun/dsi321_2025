@@ -8,6 +8,10 @@ df = pd.read_csv("cleaned_data.csv")
 # กรองเฉพาะแถวที่ในคอลัมน์ Date มีคำว่า "ชั่วโมงที่ผ่านมา" หรือ "วันที่ผ่านมา"
 filtered_df = df[df['Date'].str.contains(r'(ชั่วโมงที่ผ่านมา|วันที่ผ่านมา)', na=False)]
 
+# print("จำนวนแถวที่ตรงกับเงื่อนไข:", filtered_df.shape[0])
+# print("ตัวอย่างข้อมูลที่กรองได้:")
+# print(filtered_df[['Date', 'Title']].head(1000))
+
 # รวมข้อความทั้งหมดในคอลัมน์ Title_no_stopwords (หรือชื่อคอลัมน์ที่คุณใช้จริง)
 text = " ".join(filtered_df['Title'])
 

@@ -34,13 +34,22 @@ services:
 
   ## Prefect Worker
   worker:
-    image: prefecthq/prefect:3-python3.12
+    # image: prefecthq/prefect:3-python3.12
+    build:
+      context: .
+      dockerfile: Dockerfile.cli
     restart: always
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "worker", "start", "-p", "YOUR_WORK_QUEUE_NAME"]
+    working_dir: "/root/flows"
+    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "worker", "start", "-p", "scrape-news"]
     environment:
       - PREFECT_API_URL=http://server:4200/api
     profiles: ["worker"]
-
+    volumes:
+      - "./scrape_2.py:/root/flows/scrape_2.py"
+      - "./config_path.py:/root/flows/config_path.py"
+      - "./requirements.txt:/root/flows/requirements.txt"
+      - "./pyproject.toml:/root/flows/pyproject.toml"
+    
   ### Prefect CLI
   cli:
     # image: prefecthq/prefect:3-python3.12
@@ -51,7 +60,10 @@ services:
     working_dir: "/root/flows"
     volumes:
       - "./scrape.py:/root/flows/scrape.py"
+      - "./scrape_2.py:/root/flows/scrape_2.py"
+      - "./config_path.py:/root/flows/config_path.py"
       - "./requirements.txt:/root/flows/requirements.txt"
+      - "./pyproject.toml:/root/flows/pyproject.toml"
     environment:
       - PREFECT_API_URL=http://server:4200/api
     profiles: ["cli"]
