@@ -17,7 +17,7 @@ console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 
 @task(name="Search News")
-def search_news(keyword: str, max_pages: int = 10):
+def search_news(keyword: str, max_pages: int = 1):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()

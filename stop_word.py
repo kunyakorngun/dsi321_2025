@@ -65,6 +65,9 @@ df["Title"] = df["Title"].astype(str).apply(clean_text).apply(remove_stopwords)
 df.to_csv("cleaned_data.csv", index=False, encoding="utf-8-sig")
 
 print("✅ เสร็จแล้ว บันทึกไฟล์เป็น cleaned_data.csv")
+
+
+
 import pandas as pd
 import re
 from nltk.corpus import stopwords
