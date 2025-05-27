@@ -1,4 +1,4 @@
-name: Quality Missing
+name: ความสมบูรณ์ของข้อมูล 90%
 on:
     workflow_dispatch:
 

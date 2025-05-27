@@ -1,4 +1,4 @@
-name: Quality Duplicate
+name: ไม่มีข้อมูลซ้ำ
 on:
     workflow_dispatch:
 

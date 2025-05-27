@@ -1,4 +1,4 @@
-name: Quality Row
+name: จำนวน record อย่างน้อย 1,000 record
 on:
     workflow_dispatch:
 
