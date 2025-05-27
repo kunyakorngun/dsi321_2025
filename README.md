@@ -12,16 +12,11 @@ Main objectives:
 # Quality Check
 | | |
 | - | :- |
-| ครอบคลุมช่วงเวลา 24 ชั่วโมง | [![ครอบคลุมช่วงเวลา 24 ชั่วโมง](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml)
- |
-| ประเภทข้อมูลไม่มี 'object' | [![ประเภทข้อมูลไม่มี 'object'](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml)
- |
-| ความสมบูรณ์ของข้อมูล 90% | [![ความสมบูรณ์ของข้อมูล 90%](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_missing.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_missing.yml)
- |
-| จำนวน record อย่างน้อย 1,000 record | [![จำนวน record อย่างน้อย 1,000 record](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_row.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_row.yml)
- |
-| ไม่มีข้อมูลซ้ำ | [![ไม่มีข้อมูลซ้ำ](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_duplicate.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_duplicate.yml)
- |
+| ครอบคลุมช่วงเวลา 24 ชั่วโมง | [![ครอบคลุมช่วงเวลา 24 ชั่วโมง](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml)|
+| ประเภทข้อมูลไม่มี 'object' | [![ประเภทข้อมูลไม่มี 'object'](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml) |
+| ความสมบูรณ์ของข้อมูล 90% | [![ความสมบูรณ์ของข้อมูล 90%](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_missing.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_missing.yml)|
+| จำนวน record อย่างน้อย 1,000 record | [![จำนวน record อย่างน้อย 1,000 record](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_row.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_row.yml)|
+| ไม่มีข้อมูลซ้ำ | [![ไม่มีข้อมูลซ้ำ](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_duplicate.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_duplicate.yml)|
 - dataset (`data/data.parquet`)
 
 ## Project Structure
