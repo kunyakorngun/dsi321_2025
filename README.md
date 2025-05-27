@@ -11,7 +11,7 @@ Main objectives:
 
 # Quality Check
 | | |
-| - | - |
+| - | :- |
 | ครอบคลุมช่วงเวลา 24 ชั่วโมง | [![ครอบคลุมช่วงเวลา 24 ชั่วโมง](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_time.yml)
  |
 | ประเภทข้อมูลไม่มี 'object' | [![ประเภทข้อมูลไม่มี 'object'](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml/badge.svg)](https://github.com/kunyakorngun/dsi321_2025/actions/workflows/check_datatype.yml)
@@ -145,7 +145,7 @@ This project demonstrates an end-to-end data pipeline for collecting and analyzi
 
 - At times, scraping yielded no new data; Prefect scheduling had to be adjusted
 - Some articles had encoding issues requiring manual correction
-- Time zone normalization was needed for consistent data
+- Time zone norecmalization was needed for consistent data
 
 ## Future Improvements
 
